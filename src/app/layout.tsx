@@ -30,6 +30,9 @@ export const metadata: Metadata = {
     "kitchen knives",
     "cookware",
   ],
+  icons: {
+    icon: "/favicon.png",
+  },
 };
 
 export default function RootLayout({

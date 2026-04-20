@@ -196,11 +196,11 @@ export const DEMO_LISTINGS: DemoListing[] = [
 ];
 
 export const HERO_IMAGES = {
-  main: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1920&h=1080&fit=crop&q=80",
-  espresso: "https://images.unsplash.com/photo-1510707577719-ae7c14805e3a?w=600&h=400&fit=crop",
-  grinders: "https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=600&h=400&fit=crop",
-  knives: "https://images.unsplash.com/photo-1593618998160-e34014e67546?w=600&h=400&fit=crop",
-  cookware: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&h=400&fit=crop",
+  main: "/images/hero.jpg",
+  espresso: "/images/espresso.jpg",
+  grinders: "/images/grinders.jpg",
+  knives: "/images/knives.jpg",
+  cookware: "/images/cookware.jpg",
 };
 
 export const TESTIMONIALS = [
