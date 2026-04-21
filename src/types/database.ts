@@ -6,6 +6,9 @@ export type Profile = {
   avatar_url: string | null;
   location: string | null;
   website: string | null;
+  onboarding_completed: boolean;
+  intent: "buy" | "sell" | "both" | null;
+  interests: string[];
   created_at: string;
   updated_at: string;
 };

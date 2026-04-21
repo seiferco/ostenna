@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { formatDate } from "@/lib/utils";
 import { User, Star, ShoppingBag, Calendar, MapPin, Globe, Shield } from "lucide-react";
+import { ProfileAvatar } from "@/components/profile-avatar";
 import type { Metadata } from "next";
 
 type Props = {
@@ -59,6 +60,11 @@ export default async function UserProfilePage({ params }: Props) {
 
   const reviewerMap = new Map(reviewers?.map((r) => [r.id, r]) ?? []);
 
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  const isOwner = user?.id === profile.id;
+
   const initials = (profile.display_name ?? profile.username)
     .split(" ")
     .map((w: string) => w[0])
@@ -72,36 +78,27 @@ export default async function UserProfilePage({ params }: Props) {
       <div className="h-32 sm:h-40 bg-gradient-to-r from-patina-verdigris-500 via-patina-verdigris-400 to-patina-espresso" />
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Avatar + info */}
-        <div className="-mt-12 flex flex-col items-center sm:flex-row sm:items-end sm:gap-6">
-          {/* Avatar overlapping cover */}
-          <div className="flex h-24 w-24 shrink-0 items-center justify-center rounded-full border-4 border-white bg-patina-verdigris-100 shadow-md">
-            {profile.avatar_url ? (
-              <img
-                src={profile.avatar_url}
-                alt={profile.display_name ?? profile.username}
-                className="h-full w-full rounded-full object-cover"
-              />
-            ) : (
-              <span className="font-heading text-2xl text-patina-verdigris-600">
-                {initials}
+        {/* Avatar overlapping cover */}
+        <ProfileAvatar
+          isOwner={isOwner}
+          avatarUrl={profile.avatar_url}
+          name={profile.display_name ?? profile.username}
+          initials={initials}
+        />
+
+        {/* Name + username */}
+        <div className="mt-4 text-center sm:text-left">
+          <div className="flex items-center justify-center gap-2 sm:justify-start">
+            <h1 className="font-heading text-2xl text-patina-espresso">
+              {profile.display_name ?? profile.username}
+            </h1>
+            {totalReviews >= 10 && (
+              <span title="Trusted member">
+                <Shield className="h-5 w-5 text-patina-verdigris-500" />
               </span>
             )}
           </div>
-
-          <div className="mt-3 flex-1 text-center sm:mb-1 sm:text-left">
-            <div className="flex items-center justify-center gap-2 sm:justify-start">
-              <h1 className="font-heading text-2xl text-patina-espresso">
-                {profile.display_name ?? profile.username}
-              </h1>
-              {totalReviews >= 10 && (
-                <span title="Trusted member">
-                  <Shield className="h-5 w-5 text-patina-verdigris-500" />
-                </span>
-              )}
-            </div>
-            <p className="text-patina-clay">@{profile.username}</p>
-          </div>
+          <p className="text-patina-clay">@{profile.username}</p>
         </div>
 
         {/* Stats row */}

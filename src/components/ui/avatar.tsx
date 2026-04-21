@@ -5,6 +5,7 @@ const sizeStyles = {
   sm: "h-8 w-8 text-xs",
   md: "h-10 w-10 text-sm",
   lg: "h-14 w-14 text-base",
+  xl: "h-28 w-28 text-2xl",
 } as const;
 
 type AvatarProps = {
